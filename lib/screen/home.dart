@@ -91,6 +91,7 @@ class _HomeState extends State<Home> {
             child: TodoList(
               todos: _filteredTodos,
               onDelete: _deleteTodoItem,
+              onEdit: _editTodoItem,
             ),
           ),
         ],
@@ -129,10 +130,17 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void _editTodoItem(int index, String newText) {
+    setState(() {
+      todos[index] = newText;
+      _searchTodoList(_searchController.text);
+    });
+  }
+
   void _searchTodoList(String query) {
     setState(() {
       if (query.isEmpty) {
-        // If the query is empty, show all todos        _filteredTodos = todos;
+        // If the query is empty, show all todos
       } else {
         // Filter todos based on the query
         _filteredTodos = todos
